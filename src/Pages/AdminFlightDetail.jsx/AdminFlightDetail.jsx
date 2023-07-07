@@ -35,7 +35,7 @@ const AdminFlightDetail = () => {
       // Add flight data to Firebase Firestore
       const docRef = await addDoc(collection(db, "flights"), flightData);
 
-      toast.success("Successfully toasted!");
+      toast.success("Successfully Added!");
       console.log("Flight added with ID: ", docRef.id);
       setTimeout(() => {
         // toast("Here is your toast.");

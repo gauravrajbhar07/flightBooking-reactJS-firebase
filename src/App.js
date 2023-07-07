@@ -6,14 +6,9 @@ import {
 import { useNavigate } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import Login from "./Login/Login";
-import Single from "./Pages/single/Single";
-import List from "./Pages/List/List";
+
 // import New from "./Pages/New/New";
 import Adminlogin from "./Login/Adminlogin";
-import Adminsignup from "./SignUp/Adminsignup";
-import Porduct from "./Pages/product/Product";
-// import { userInputs } from "./fromSource";
-import { productInputs, userInputs } from "./fromSource";
 import "./style/dark.scss";
 
 import {
@@ -25,9 +20,6 @@ import { useContext, useReducer } from "react";
 import { DarkModeContext } from "./Context/darkModeContext";
 
 import { AuthContext } from "../src/Context/authContext";
-import Product from "./Pages/product/Product";
-import ProductList from "./Pages/List/ProductList";
-import NewProduct from "./Pages/New/NewProduct";
 import Signup from "./SignUp/Signup";
 import Option from "./Option";
 import AvaiableFlight from "./Pages/aviableFlight/Avaiableflight";
@@ -35,7 +27,7 @@ import AdminFlightDetail from "./Pages/AdminFlightDetail.jsx/AdminFlightDetail";
 import Useravaiableflight from "./Pages/userAvaiableFlight/Useravaiableflight";
 import FlightSearchBar from "./Pages/FlightSearchBar/Flightsearchbar";
 import Viewpage from "./Pages/viewPage/Viewpage";
-import New from "./Pages/New/New";
+import Adminsignup from "./SignUp/Adminsignup";
 
 function App() {
   // const [dark, setDark] = useState(false);

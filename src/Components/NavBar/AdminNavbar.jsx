@@ -1,8 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./adminNavbar.css";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
 
 const AdminNavbar = () => {
+  const handleLogout = async () => {
+    try {
+      await signOut(auth); // Call the signOut function from Firebase Auth
+      // Redirect or perform other actions after successful logout
+      console.log("Logged out successfully!");
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
   return (
     <nav className="admin-navbar">
       <div className="admin-navbar-logo">
@@ -21,7 +32,9 @@ const AdminNavbar = () => {
           </Link>
         </li>
         <li>
-          <Link to="/settings">logout</Link>
+          <Link to="/" onClick={handleLogout}>
+            logout
+          </Link>
         </li>
       </ul>
     </nav>
