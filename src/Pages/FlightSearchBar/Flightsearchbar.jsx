@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "../../firebase";
+import { app, db } from "../../firebase";
 import "./Flightsearchbar.css";
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import NavBar from "../../Components/NavBar/NavBar";
 import "./Flightsearchbar.css";
+// import firebase from '../../firebase
 
 const FlightSearchBar = () => {
   const [destination, setDestination] = useState("");
@@ -19,13 +20,59 @@ const FlightSearchBar = () => {
   const [destinationSuggestions, setDestinationSuggestions] = useState([]);
   const [departureLocationSuggestions, setDepartureLocationSuggestions] =
     useState([]);
+
+  const [destinationoption, setDestinationoption] = useState("");
+  const empCollectionRef = collection(db, "flights");
   const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+
+  // // let outputArray = [];
+
+  // const fetchData = async () => {
+  //   try {
+  //     const querySnapshot = await getDocs(empCollectionRef);
+  //     const data = querySnapshot.docs.map(
+  //       (doc) => doc.data().departureLocation
+  //     ); // Extracting departureLocation
+  //     const jsonData = JSON.stringify(data); // JSON string
+  //     console.log("jsonData : ", jsonData);
+
+  //     let arr = JSON.parse(jsonData);
+  //     function removeDuplicates(arr) {
+  //       let unique = [];
+  //       arr.forEach((element) => {
+  //         if (!unique.includes(element)) {
+  //           unique.push(element);
+  //         }
+  //       });
+  //       return unique;
+  //     }
+  //     console.log(removeDuplicates(arr));
+
+  //     // function removeusingSet(jsonData) {
+  //     //   let outputArray = Array.from(new Set(jsonData));
+  //     //   return outputArray;
+  //     // }
+
+  //     // console.log(removeusingSet(jsonData));
+  //   } catch (error) {
+  //     console.error("Error fetching data from Firestore:", error);
+  //   }
+  // };
+
+  // const getUsers = async () => {
+  //   const data = await getDocs(empCollectionRef);
+  //   console.log("data data : ", data);
+  // };
 
   const handleSearch = async () => {
     try {
       // Prepare the query based on the entered search criteria
       let flightQuery = collection(db, "flights");
-      console.log(flightQuery);
+      console.log("flightQuery : ", flightQuery);
 
       if (destination) {
         flightQuery = query(
@@ -77,6 +124,49 @@ const FlightSearchBar = () => {
     }
   };
 
+  useEffect(() => {
+    const delay = 1000;
+    const debounce = setTimeout(() => {
+      console.log("hitting API");
+    }, delay);
+
+    return () => {
+      clearTimeout(debounce);
+    };
+  }, [destination]);
+
+  const handleSearchDestination = (e) => {
+    const fetchData = async () => {
+      try {
+        const querySnapshot = await getDocs(empCollectionRef);
+        const data = querySnapshot.docs.map(
+          (doc) => doc.data().departureLocation
+        ); // Extracting departureLocation
+        const jsonData = JSON.stringify(data); // JSON string
+        // console.log("jsonData : ", jsonData);
+
+        let arr = JSON.parse(jsonData);
+        var unique = [];
+        function removeDuplicates(arr) {
+          arr.forEach((element) => {
+            if (!unique.includes(element)) {
+              unique.push(element);
+            }
+          });
+          return unique;
+        }
+        console.log(removeDuplicates(arr));
+        setDestinationoption(unique);
+      } catch (error) {
+        console.error("Error fetching data from Firestore:", error);
+      }
+    };
+
+    fetchData();
+    setDestination(e.target.value);
+    console.log("destination :", destination);
+  };
+
   return (
     <div className="container-flight">
       <div>
@@ -84,12 +174,20 @@ const FlightSearchBar = () => {
       </div>
 
       <div className="flight-search-bar">
-        <input
-          type="text"
-          placeholder="Destination"
-          value={destination}
-          onChange={(e) => setDestination(e.target.value)}
-        />
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="Destination"
+            value={destination}
+            onChange={handleSearchDestination}
+          />
+          <div className={`${destination ? "absolute" : "hidden"}`}>
+            <ul className="listsearch">
+              {destinationoption &&
+                destinationoption.map((elem) => <li key={elem} onClick={()=>setDestination(elem)}>{elem}</li>)}
+            </ul>
+          </div>
+        </div>
 
         <input
           type="text"
@@ -97,6 +195,9 @@ const FlightSearchBar = () => {
           value={departureLocation}
           onChange={(e) => setDepartureLocation(e.target.value)}
         />
+        {
+          // <li>{jsonData}</li>
+        }
         {departureLocationSuggestions.length > 0 && (
           <ul className="suggestion-list">
             {departureLocationSuggestions
