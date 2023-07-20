@@ -22,6 +22,12 @@ const FlightSearchBar = () => {
     useState([]);
 
   const [destinationoption, setDestinationoption] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(true);
+  const [showSuggestions2, setShowSuggestions2] = useState(true);
+
+  const [departureLocationption, setDepartureLocationoption] = useState("");
+  // const [showSuggestions, setShowSuggestions] = useState(true);
+
   const empCollectionRef = collection(db, "flights");
   const navigate = useNavigate();
 
@@ -124,47 +130,71 @@ const FlightSearchBar = () => {
     }
   };
 
-  useEffect(() => {
-    const delay = 1000;
-    const debounce = setTimeout(() => {
-      console.log("hitting API");
-    }, delay);
+  // useEffect(() => {
+  //   const delay = 1000;
+  //   const debounce = setTimeout(() => {
+  //     console.log("hitting API");
+  //   }, delay);
 
-    return () => {
-      clearTimeout(debounce);
-    };
-  }, [destination]);
+  //   return () => {
+  //     clearTimeout(debounce);
+  //   };
+  // }, [destination]);
 
   const handleSearchDestination = (e) => {
-    const fetchData = async () => {
-      try {
-        const querySnapshot = await getDocs(empCollectionRef);
-        const data = querySnapshot.docs.map(
-          (doc) => doc.data().departureLocation
-        ); // Extracting departureLocation
-        const jsonData = JSON.stringify(data); // JSON string
-        // console.log("jsonData : ", jsonData);
-
-        let arr = JSON.parse(jsonData);
-        var unique = [];
-        function removeDuplicates(arr) {
-          arr.forEach((element) => {
-            if (!unique.includes(element)) {
-              unique.push(element);
-            }
-          });
-          return unique;
-        }
-        console.log(removeDuplicates(arr));
-        setDestinationoption(unique);
-      } catch (error) {
-        console.error("Error fetching data from Firestore:", error);
-      }
-    };
-
-    fetchData();
     setDestination(e.target.value);
-    console.log("destination :", destination);
+
+    const popularCities = [
+      "Delhi",
+      "Mumbai",
+      "Chennai",
+      "Kolkata",
+      "Bangalore",
+      "Hyderabad",
+      "Ahmedabad",
+    ];
+
+    const filteredSuggestions = popularCities.filter((city) => {
+      return city.toLowerCase().includes(e.target.value.toLowerCase());
+    });
+
+    setDestinationoption(filteredSuggestions);
+    setShowSuggestions(true);
+
+    // Clear the suggestions when the destination is set
+    // if (filteredSuggestions.length === 0) {
+    //   setDestinationoption([]);
+    // }
+
+    console.log("filteredSuggestions:", filteredSuggestions);
+  };
+
+  const handleSearchDeparture = (e) => {
+    setDepartureLocation(e.target.value);
+
+    const popularCities = [
+      "Delhi",
+      "Mumbai",
+      "Chennai",
+      "Kolkata",
+      "Bangalore",
+      "Hyderabad",
+      "Ahmedabad",
+    ];
+
+    const filteredSuggestions = popularCities.filter((city) => {
+      return city.toLowerCase().includes(e.target.value.toLowerCase());
+    });
+
+    setDepartureLocationoption(filteredSuggestions);
+    setShowSuggestions2(true);
+
+    // Clear the suggestions when the destination is set
+    // if (filteredSuggestions.length === 0) {
+    //   setDestinationoption([]);
+    // }
+
+    console.log("filteredSuggestions:", filteredSuggestions);
   };
 
   return (
@@ -181,20 +211,57 @@ const FlightSearchBar = () => {
             value={destination}
             onChange={handleSearchDestination}
           />
-          <div className={`${destination ? "absolute" : "hidden"}`}>
+          <div
+            className={`${
+              destination && showSuggestions ? "absolute" : "hidden"
+            }`}
+          >
             <ul className="listsearch">
               {destinationoption &&
-                destinationoption.map((elem) => <li key={elem} onClick={()=>setDestination(elem)}>{elem}</li>)}
+                destinationoption.map((elem) => (
+                  <li
+                    key={elem}
+                    onClick={() => {
+                      setDestination(elem);
+                      setShowSuggestions(false); // Hide the suggestions after setting the destination
+                    }}
+                  >
+                    {elem}
+                  </li>
+                ))}
             </ul>
           </div>
         </div>
 
-        <input
-          type="text"
-          placeholder="Departure Location"
-          value={departureLocation}
-          onChange={(e) => setDepartureLocation(e.target.value)}
-        />
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="Departure Location"
+            value={departureLocation}
+            onChange={handleSearchDeparture}
+          />
+          <div
+            className={`${
+              departureLocation && showSuggestions2 ? "absolute" : "hidden"
+            }`}
+          >
+            <ul className="listsearch">
+              {departureLocationption &&
+                departureLocationption.map((elem) => (
+                  <li
+                    key={elem}
+                    onClick={() => {
+                      setDepartureLocation(elem);
+                      setShowSuggestions2(false); // Hide the suggestions after setting the destination
+                    }}
+                  >
+                    {elem}
+                  </li>
+                ))}
+            </ul>
+          </div>
+        </div>
+
         {
           // <li>{jsonData}</li>
         }
