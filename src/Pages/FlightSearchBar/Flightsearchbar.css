@@ -74,3 +74,18 @@
 .hidden {
   display: none;
 }
+
+.flight-search-bar input[type="date"].available-date {
+  padding: 8px;
+  border: 1px solid #007bff; /* Blue border for available dates */
+  border-radius: 4px;
+  font-size: 1.2rem;
+}
+
+.flight-search-bar input[type="date"].unavailable-date {
+  padding: 8px;
+  border: 1px solid #ccc; /* Gray border for unavailable dates */
+  border-radius: 4px;
+  font-size: 1.2rem;
+}
+
