@@ -36,6 +36,12 @@ import { useLocation } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import SearchIcon from "@mui/icons-material/Search";
 import Navbar from "../../Components/NavBar/NavBar";
+import "./Useravaiableflight.css";
+
+const customTableCellStyles = {
+  padding: "0px", // Adjust the padding as needed
+  margin: "0", // Adjust the margin as needed
+};
 
 const rows = [];
 
@@ -190,31 +196,94 @@ export default function Useravaiableflight() {
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
-                <TableCell align="left" style={{ minWidth: "10px" }}>
+                <TableCell
+                  align="left"
+                  style={{
+                    minWidth: "10px",
+                    fontWeight: 900,
+                    textAlign: "center",
+                  }}
+                >
                   flightCompany
                 </TableCell>
-                <TableCell align="left" style={{ minWidth: "100px" }}>
+                <TableCell
+                  align="left"
+                  style={{
+                    minWidth: "100px",
+                    fontWeight: 900,
+                    textAlign: "center",
+                  }}
+                >
                   departureLocation
                 </TableCell>
-                <TableCell align="left" style={{ minWidth: "100px" }}>
+                <TableCell
+                  align="left"
+                  style={{
+                    minWidth: "100px",
+                    fontWeight: 900,
+                    textAlign: "center",
+                  }}
+                >
                   destination
                 </TableCell>
-                <TableCell align="left" style={{ minWidth: "100px" }}>
+                <TableCell
+                  align="left"
+                  style={{
+                    minWidth: "100px",
+                    fontWeight: 900,
+                    textAlign: "center",
+                  }}
+                >
                   price
                 </TableCell>
-                <TableCell align="left" style={{ minWidth: "100px" }}>
+                <TableCell
+                  align="left"
+                  style={{
+                    minWidth: "100px",
+                    fontWeight: 900,
+                    textAlign: "center",
+                  }}
+                >
                   availableSlots
                 </TableCell>
-                <TableCell align="left" style={{ minWidth: "100px" }}>
+                <TableCell
+                  align="left"
+                  style={{
+                    minWidth: "100px",
+                    fontWeight: 900,
+                    textAlign: "center",
+                  }}
+                >
                   departureDate
                 </TableCell>
-                <TableCell align="left" style={{ minWidth: "100px" }}>
+                <TableCell
+                  align="left"
+                  style={{
+                    minWidth: "100px",
+                    fontWeight: 900,
+                    textAlign: "center",
+                  }}
+                >
                   returnDate
                 </TableCell>
-                <TableCell align="left" style={{ minWidth: "100px" }}>
+                <TableCell
+                  align="left"
+                  style={{
+                    minWidth: "100px",
+                    fontWeight: 900,
+                    textAlign: "center",
+                  }}
+                >
                   flightType
                 </TableCell>
-                <TableCell align="left" style={{ minWidth: "100px" }}>
+                <TableCell
+                  align="left"
+                  style={{
+                    minWidth: "100px",
+                    fontWeight: 900,
+                    textAlign: "center",
+                  }}
+                >
                   More Details
                 </TableCell>
               </TableRow>
@@ -225,31 +294,102 @@ export default function Useravaiableflight() {
                 .map((row) => {
                   return (
                     <TableRow hover role="checkbox" tabIndex={-1}>
-                      <TableCell key={row.id} align="left">
+                      <TableCell
+                        key={row.id}
+                        align="left"
+                        style={{
+                          minWidth: "100px",
+                          textAlign: "center",
+                          ...customTableCellStyles,
+                        }}
+                      >
                         {row.flightCompany}
                       </TableCell>
-                      <TableCell key={row.id} align="left">
+                      <TableCell
+                        key={row.id}
+                        align="left"
+                        style={{
+                          minWidth: "100px",
+                          textAlign: "center",
+                          ...customTableCellStyles,
+                        }}
+                      >
                         {row.departureLocation}
                       </TableCell>
-                      <TableCell key={row.id} align="left">
+                      <TableCell
+                        key={row.id}
+                        align="left"
+                        style={{
+                          minWidth: "100px",
+                          textAlign: "center",
+                          ...customTableCellStyles,
+                        }}
+                      >
                         {row.destination}
                       </TableCell>
-                      <TableCell key={row.id} align="left">
+                      <TableCell
+                        key={row.id}
+                        align="left"
+                        style={{
+                          minWidth: "100px",
+                          textAlign: "center",
+                          ...customTableCellStyles,
+                        }}
+                      >
                         {row.price}
                       </TableCell>
-                      <TableCell key={row.id} align="left">
+                      <TableCell
+                        key={row.id}
+                        align="left"
+                        style={{
+                          minWidth: "100px",
+                          textAlign: "center",
+                          ...customTableCellStyles,
+                        }}
+                      >
                         {row.availableSlots}
                       </TableCell>
-                      <TableCell key={row.id} align="left">
+                      <TableCell
+                        key={row.id}
+                        align="left"
+                        style={{
+                          minWidth: "100px",
+                          textAlign: "center",
+                          ...customTableCellStyles,
+                        }}
+                      >
                         {row.departureDate}
                       </TableCell>
-                      <TableCell key={row.id} align="left">
+                      <TableCell
+                        key={row.id}
+                        align="left"
+                        style={{
+                          minWidth: "100px",
+                          textAlign: "center",
+                          ...customTableCellStyles,
+                        }}
+                      >
                         {row.returnDate}
                       </TableCell>
-                      <TableCell key={row.id} align="left">
+                      <TableCell
+                        key={row.id}
+                        align="left"
+                        style={{
+                          minWidth: "100px",
+                          textAlign: "center",
+                          ...customTableCellStyles,
+                        }}
+                      >
                         {row.flightType}
                       </TableCell>
-                      <TableCell align="left">
+                      <TableCell
+                        align="left"
+                        style={{
+                          minWidth: "100px",
+                          textAlign: "center",
+                          ...customTableCellStyles,
+                        }}
+                      >
                         <Stack spacing={2} direction="row">
                           {/* <div className="cellAction">
                           <Link
@@ -273,7 +413,7 @@ export default function Useravaiableflight() {
                                 onClick={() => {
                                   toast.success("Successfully Booked!");
                                 }}
-                                className="ViewButton"
+                                className="btn-hover"
                               >
                                 Book Now
                               </div>
